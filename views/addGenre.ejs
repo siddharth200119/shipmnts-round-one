@@ -1,0 +1,9 @@
+<%- include('header', {appTitle: appTitle}); %>
+
+<form action= <%= userPath %> method="POST">
+    <label>Genre Name: </label>
+    <input type="text" placeholder="Genre Name" name="genre"><br><br>
+    <button>Submit</button>
+</form>
+
+<%- include('footer'); %>

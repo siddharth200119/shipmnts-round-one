@@ -152,3 +152,18 @@ app.post("/addMovie", function(req, res){
 
     movie.save()
 });
+
+app.get("/:userID/api/addGenre", function(req, res){
+    res.render("addGenre", {appTitle: "Add Genre", userPath: `/${req.params.userID}/api/addGenre`})
+});
+
+app.post("/:userID/api/addGenre", function(req, res){
+    var genre = req.body.genre;
+
+    const genre_db = new Genre({
+        genre_name: genre,
+        creator_ID: req.params.userID,
+    })
+
+    genre_db.save()
+})
