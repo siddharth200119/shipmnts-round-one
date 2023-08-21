@@ -1,9 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require('path');
+var bodyParser=require("body-parser");
 
 const app = express()
 app.set("view engine", "ejs");
+app.use(bodyParser.urlencoded({extended:true}));
 app.set('views', path.join(__dirname, '/views'));
 
 mongoose.connect("mongodb://127.0.0.1:27017/IMDBdb")
@@ -78,4 +80,22 @@ app.listen(port, function (){
 
 app.get("/", function(req, res){
     res.render("home", {appTitle: "IMDB clone"});
+})
+
+//to add user
+
+app.get("/addUser", function(req,res){
+    res.render("addUser", {appTitle: "Add User"})
+})
+
+app.post("/addUser", function(req, res){
+    var username=req.body.username;
+    var password=req.body.password;
+
+    const user = new User({
+        user_name: username,
+        password: password,
+    })
+
+    user.save()
 })

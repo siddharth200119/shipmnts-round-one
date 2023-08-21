@@ -1,0 +1,11 @@
+<%- include('header', {appTitle: appTitle}); %>
+
+<form action="/addUser" method="POST">
+    <label>Username: </label>
+    <input type="text" placeholder="Name" name="username"><br><br>
+    <label>Password: </label>
+    <input type="text" placeholder="Password" name="password"><br><br>
+    <button>Submit</button>
+</form>
+
+<%- include('footer'); %>
