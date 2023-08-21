@@ -1,0 +1,19 @@
+<%- include('header', {appTitle: appTitle}); %>
+
+<form action="/addMovie" method="POST">
+    <label>Movie name: </label>
+    <input type="text" placeholder="Movie Name" name="movie_name"><br><br>
+    <label>Description: </label>
+    <input type="text" placeholder="Description" name="description"><br><br>
+    <label>Release Date: </label>
+    <input type="date" placeholder="Release Date" name="release_date"><br><br>
+    <label>Genre: </label>
+    <select name="genre" id="Genre">
+        <% for(var i = 0; i < genres.length; i++) { %>
+            <option value=<%= authors[i] %>> <%= authors[i] %> </option>
+        <% } %>
+      </select><br><br>
+    <button>Submit</button>
+</form>
+
+<%- include('footer'); %>

@@ -118,11 +118,8 @@ app.post("/login", async function(req, res){
                 redirect = true;
                 user_id = d._id;
             }
-            console.log(redirect)
         })
     })
-
-    console.log(redirect)
     
     if(redirect){
         res.redirect(`/:${user_id}`)
@@ -133,9 +130,25 @@ app.post("/login", async function(req, res){
 })
 
 app.get("/:userID", function(req, res){
-    res.send(req.params.userID)
+    res.render("user_menu")
 })
 
-app.get("/:userID/api/addMovies", function(req, res){
-    res.send(req.params.userID);
+app.get("/:userID/api/addMovie", function(req, res){
+    res.render("addMovie", {appTitle: "Add Movies", genres: genres})
+});
+
+app.post("/addMovie", function(req, res){
+    var movie_name=req.body.movie_name;
+    var description=req.body.description;
+    var release_date = req.body.release_date;
+    var genre = req.body.genre;
+    
+    const movie = new Movie({
+        name: movie_name,
+        description: description,
+        release_date: release_date,
+        genre: genre
+    })
+
+    movie.save()
 });
