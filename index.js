@@ -99,3 +99,43 @@ app.post("/addUser", function(req, res){
 
     user.save()
 })
+
+//check login
+
+app.get("/login", function(req, res){
+    res.render("login", {appTitle: "Login"})
+})
+
+app.post("/login", async function(req, res){
+    var username=req.body.username;
+    var password=req.body.password;
+    var redirect = false
+    user_id = ''
+
+    await User.find().then(users => {
+        users.map((d,k) => {
+            if(d.user_name == username && d.password == password){
+                redirect = true;
+                user_id = d._id;
+            }
+            console.log(redirect)
+        })
+    })
+
+    console.log(redirect)
+    
+    if(redirect){
+        res.redirect(`/:${user_id}`)
+    }
+    else{
+        res.send("user not found")
+    }
+})
+
+app.get("/:userID", function(req, res){
+    res.send(req.params.userID)
+})
+
+app.get("/:userID/api/addMovies", function(req, res){
+    res.send(req.params.userID);
+});
